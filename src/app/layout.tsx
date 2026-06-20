@@ -20,14 +20,14 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Oumalk - Professional Videography',
-    template: '%s — Oumalk',
+    default: 'Oumalek - Professional Videography',
+    template: '%s — Oumalek',
   },
   description: 'Professional videography services for weddings, events, and commercial content',
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  let siteName = 'Oumalk'
+  let siteName = 'Oumalek'
   let social: { facebook?: string; instagram?: string; youtube?: string } = {}
   let contact: { email?: string; phone?: string } = {}
   let copyright = ''
