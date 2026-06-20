@@ -13,6 +13,7 @@ export default async function AdminPageSectionsPage() {
         { header: 'Visible', accessor: (s) => s.isVisible ? 'Yes' : 'No' },
         { header: 'Order', accessor: (s) => String(s.order) },
       ]}
+      createHref="/admin/page-sections/new"
       editHref={(s) => `/admin/page-sections/${s.id}`}
       deleteModel="pageSection"
     />

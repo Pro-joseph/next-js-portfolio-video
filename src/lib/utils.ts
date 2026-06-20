@@ -3,7 +3,7 @@ export function resolveImagePath(path: string | null): string | null {
 
   if (path.includes('drive.google.com/file/d/')) {
     const match = path.match(/\/d\/([^/]+)/)
-    if (match) return `https://drive.google.com/uc?export=view&id=${match[1]}`
+    if (match) return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1920`
   }
 
   if (path.startsWith('http')) return path
