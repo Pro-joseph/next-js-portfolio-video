@@ -7,9 +7,11 @@ interface Props {
   title?: string
   body?: string
   images: string[]
+  buttonText?: string
+  buttonLink?: string
 }
 
-export function HeroSection({ title, body, images }: Props) {
+export function HeroSection({ title, body, images, buttonText, buttonLink }: Props) {
   const [current, setCurrent] = useState(0)
 
   useEffect(() => {
@@ -120,8 +122,8 @@ export function HeroSection({ title, body, images }: Props) {
             opacity: 0, transform: 'translateY(20px)',
             animation: 'fadeUp 0.9s ease forwards 0.65s',
           }}>
-            <Link href="/portfolio" className="btn-primary">
-              <span>View Our Work</span>
+            <Link href={buttonLink || "/portfolio"} className="btn-primary">
+              <span>{buttonText || "View Our Work"}</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </Link>
             <Link href="/contact" className="btn-secondary">Get In Touch</Link>

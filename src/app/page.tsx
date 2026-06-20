@@ -62,6 +62,8 @@ export default async function HomePage() {
         title={hero?.title ?? undefined}
         body={hero?.body ?? undefined}
         images={getImagesFromJson(hero?.imagePath ?? null)}
+        buttonText={hero?.buttonText ?? undefined}
+        buttonLink={hero?.buttonLink ?? undefined}
       />
 
       <FeaturedWork projects={featuredCards} />
@@ -85,6 +87,8 @@ export default async function HomePage() {
       <CTASection
         title={cta?.title ?? undefined}
         body={cta?.body ?? undefined}
+        buttonText={cta?.buttonText ?? undefined}
+        buttonLink={cta?.buttonLink ?? undefined}
       />
     </>
   )
