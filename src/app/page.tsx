@@ -21,7 +21,7 @@ export default async function HomePage() {
       where: { isVisible: true, key: { in: ['hero', 'about', 'cta'] } },
     }),
     prisma.project.findMany({
-      where: { isFeatured: true },
+      where: { isFeatured: true, deletedAt: null },
       include: { category: true, media: true },
       orderBy: { createdAt: 'desc' },
       take: 6,

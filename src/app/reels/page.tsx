@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function ReelsPage() {
   const reels = await prisma.project.findMany({
-    where: { isReels: true },
+    where: { isReels: true, deletedAt: null },
     include: { media: { orderBy: { order: 'asc' }, take: 1 } },
     orderBy: { createdAt: 'desc' },
   })

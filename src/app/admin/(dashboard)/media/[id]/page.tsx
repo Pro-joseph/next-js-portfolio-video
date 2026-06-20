@@ -7,7 +7,7 @@ export default async function EditMediaPage({ params }: { params: Promise<{ id: 
   const { id } = await params
   const [media, projects] = await Promise.all([
     prisma.media.findUnique({ where: { id: parseInt(id) } }),
-    prisma.project.findMany({ orderBy: { title: 'asc' } }),
+    prisma.project.findMany({ where: { deletedAt: null }, orderBy: { title: 'asc' } }),
   ])
   if (!media) notFound()
 

@@ -3,7 +3,7 @@ import { AdminForm } from '@/lib/admin-form'
 import { upsertMedia } from '../actions'
 
 export default async function NewMediaPage() {
-  const projects = await prisma.project.findMany({ orderBy: { title: 'asc' } })
+  const projects = await prisma.project.findMany({ where: { deletedAt: null }, orderBy: { title: 'asc' } })
   return (
     <div>
       <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '2.5rem', color: 'var(--text)', marginBottom: '2rem' }}>New Media</h1>

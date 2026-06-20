@@ -2,7 +2,10 @@ import { prisma } from '@/lib/prisma'
 import { AdminTable } from '@/lib/admin-components'
 
 export default async function AdminPostsPage() {
-  const posts = await prisma.post.findMany({ orderBy: { createdAt: 'desc' } })
+  const posts = await prisma.post.findMany({
+    where: { deletedAt: null },
+    orderBy: { createdAt: 'desc' },
+  })
   return (
     <AdminTable
       title="Posts"

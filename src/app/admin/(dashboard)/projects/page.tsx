@@ -3,6 +3,7 @@ import { AdminTable } from '@/lib/admin-components'
 
 export default async function AdminProjectsPage() {
   const projects = await prisma.project.findMany({
+    where: { deletedAt: null },
     include: { category: true, _count: { select: { media: true } } },
     orderBy: { createdAt: 'desc' },
   })

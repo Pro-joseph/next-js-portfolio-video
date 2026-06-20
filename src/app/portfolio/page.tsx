@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function PortfolioPage() {
   const [projects, categories] = await Promise.all([
     prisma.project.findMany({
-      where: { isReels: false },
+      where: { isReels: false, deletedAt: null },
       include: { category: true, media: true },
       orderBy: { createdAt: 'desc' },
     }),

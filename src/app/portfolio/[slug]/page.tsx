@@ -32,7 +32,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   if (!project) notFound()
 
   const related = await prisma.project.findMany({
-    where: { id: { not: project.id }, isReels: project.isReels },
+    where: { id: { not: project.id }, isReels: project.isReels, deletedAt: null },
     take: 2,
     orderBy: { createdAt: 'desc' },
   })
