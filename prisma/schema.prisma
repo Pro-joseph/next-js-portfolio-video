@@ -1,0 +1,225 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id                Int       @id @default(autoincrement())
+  name              String
+  email             String    @unique
+  emailVerifiedAt   DateTime?
+  password          String
+  rememberToken     String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  sessions          Session[]
+
+  @@map("users")
+}
+
+model PasswordResetToken {
+  email     String    @id
+  token     String
+  createdAt DateTime?
+
+  @@map("password_reset_tokens")
+}
+
+model Session {
+  id           String   @id
+  userId       Int?
+  ipAddress    String?
+  userAgent    String?
+  payload      String
+  lastActivity Int
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  categoryId  Int?
+  title       String
+  description String?
+  coverImage  String?
+  isFeatured  Boolean   @default(false)
+  isReels     Boolean   @default(false)
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  category    Category? @relation(fields: [categoryId], references: [id])
+  media       Media[]
+
+  @@map("projects")
+}
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  projectId Int
+  type      String
+  filePath  String?
+  videoUrl  String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("media")
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  projects        Project[]
+  contactMessages ContactMessage[]
+
+  @@map("categories")
+}
+
+model PageSection {
+  id         Int      @id @default(autoincrement())
+  key        String
+  title      String?
+  subtitle   String?
+  body       String?
+  imagePath  String?
+  buttonText String?
+  buttonLink String?
+  order      Int      @default(0)
+  isVisible  Boolean  @default(true)
+  extras     String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("page_sections")
+}
+
+model Testimonial {
+  id          Int      @id @default(autoincrement())
+  clientName  String
+  body        String
+  rating      Int      @default(5)
+  serviceType String?
+  isVisible   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+model Package {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  features    String?
+  icon        String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("packages")
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  title       String
+  slug        String    @unique
+  body        String
+  coverImage  String?
+  status      String    @default("draft")
+  publishedAt DateTime?
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("posts")
+}
+
+model ContactMessage {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  categoryId Int?
+  subject    String?
+  body       String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  category Category? @relation(fields: [categoryId], references: [id])
+
+  @@map("contact_messages")
+}
+
+model Client {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String?
+  logo        String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  images GalleryImage[]
+
+  @@map("clients")
+}
+
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+  clientId  Int
+  imagePath String
+  caption   String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("gallery_images")
+}
+
+model SiteSetting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String?
+  type      String   @default("text")
+  group     String   @default("general")
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model SiteCustomization {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String?
+  type      String   @default("text")
+  group     String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("site_customizations")
+}
