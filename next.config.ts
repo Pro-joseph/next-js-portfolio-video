@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['bcryptjs'],
+  serverExternalPackages: ['bcryptjs', '@libsql/client', '@prisma/adapter-libsql', '@prisma/client'],
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },

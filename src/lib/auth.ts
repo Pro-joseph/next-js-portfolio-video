@@ -43,10 +43,16 @@ export async function requireAdmin() {
     const { redirect } = await import('next/navigation')
     redirect('/admin/login')
   }
-  const user = await prisma.user.findUnique({ where: { id: userId as number } })
-  if (!user) {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: userId as number } })
+    if (!user) {
+      const { redirect } = await import('next/navigation')
+      redirect('/admin/login')
+    }
+    return user
+  } catch {
+    console.error('requireAdmin: database error, redirecting to login')
     const { redirect } = await import('next/navigation')
     redirect('/admin/login')
   }
-  return user
 }
