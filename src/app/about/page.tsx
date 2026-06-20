@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { getImagesFromJson } from '@/lib/utils'
 import Link from 'next/link'
+import { ScrollReveal } from '@/components/ui/ScrollReveal'
 
 export const dynamic = 'force-dynamic'
 
@@ -39,7 +40,7 @@ export default async function AboutPage() {
     <div style={{ padding: '10rem 1.5rem 6rem' }}>
       <div className="max-w-7xl mx-auto">
         {about && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-24 items-center section-fade">
+          <ScrollReveal as="div" className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-24 items-center">
             <div>
               <div style={{ position: 'relative' }}>
                 <div style={{ aspectRatio: '4/5', overflow: 'hidden', border: '1px solid var(--border)' }}>
@@ -64,10 +65,10 @@ export default async function AboutPage() {
               {about.body && <p style={{ color: 'var(--muted)', lineHeight: 1.7, marginBottom: '2rem' }}>{about.body}</p>}
               <Link href="/contact" className="btn-primary">Work With Us</Link>
             </div>
-          </div>
+          </ScrollReveal>
         )}
 
-        <section className="section-fade" style={{ marginBottom: '6rem', padding: '3rem', border: '1px solid var(--border)', background: 'var(--surface)' }}>
+        <ScrollReveal as="section" className="" style={{ marginBottom: '6rem', padding: '3rem', border: '1px solid var(--border)', background: 'var(--surface)' }}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { key: 'experience', label: 'Years Experience' },
@@ -88,10 +89,10 @@ export default async function AboutPage() {
               )
             })}
           </div>
-        </section>
+        </ScrollReveal>
 
         {packages.length > 0 && (
-          <section className="section-fade" style={{ marginBottom: '6rem' }}>
+          <ScrollReveal as="section" style={{ marginBottom: '6rem' }}>
             <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
               <div className="accent-line" style={{ margin: '0 auto 1.5rem' }} />
               <h2 className="section-title">Our Services</h2>
@@ -111,11 +112,11 @@ export default async function AboutPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </ScrollReveal>
         )}
 
         {testimonials.length > 0 && (
-          <section className="section-fade">
+          <ScrollReveal as="section">
             <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
               <div className="accent-line" style={{ margin: '0 auto 1.5rem' }} />
               <h2 className="section-title">What Clients Say</h2>
@@ -147,7 +148,7 @@ export default async function AboutPage() {
                 </div>
               ))}
             </div>
-          </section>
+          </ScrollReveal>
         )}
       </div>
     </div>

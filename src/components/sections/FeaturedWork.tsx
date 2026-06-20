@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface ProjectCard {
   id: number
@@ -17,6 +17,7 @@ interface Props {
 
 function ProjectCard({ project, index }: { project: ProjectCard; index: number }) {
   const cardRef = useRef<HTMLAnchorElement>(null)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const el = cardRef.current
@@ -25,7 +26,7 @@ function ProjectCard({ project, index }: { project: ProjectCard; index: number }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add('in-view')
+          setIsVisible(true)
           observer.unobserve(el)
         }
       },
@@ -51,19 +52,19 @@ function ProjectCard({ project, index }: { project: ProjectCard; index: number }
       ref={cardRef}
       href={`/portfolio/${project.slug}`}
       className="featured-card"
-      style={{
-        background: 'var(--surface)', border: '1px solid var(--border)',
-        overflow: 'hidden', cursor: 'pointer', textDecoration: 'none', display: 'block',
-        opacity: 0, transform: 'translateY(60px) rotateX(8deg)',
-        transition: 'transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease, border-color 0.4s ease',
-        transformStyle: 'preserve-3d', perspective: 1000,
-        transitionDelay: `${index * 100}ms`,
-      }}
+        style={{
+          background: 'var(--surface)', border: '1px solid var(--border)',
+          overflow: 'hidden', cursor: 'pointer', textDecoration: 'none', display: 'block',
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? 'translateY(0) rotateX(0deg)' : 'translateY(60px) rotateX(8deg)',
+          transition: 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease, border-color 0.4s ease',
+          transformStyle: 'preserve-3d', perspective: 1000,
+          transitionDelay: `${index * 100}ms`,
+        }}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
       <style>{`
-        .featured-card.in-view { opacity: 1; transform: translateY(0) rotateX(0deg); }
         .featured-card:hover {
           border-color: rgba(234, 88, 12, 0.3);
           box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(234, 88, 12, 0.15), inset 0 1px 0 rgba(255,255,255,0.05);

@@ -1,14 +1,15 @@
 'use client'
 
-import { ReactNode, useEffect, useRef } from 'react'
+import { CSSProperties, ReactNode, useEffect, useRef } from 'react'
 
 interface Props {
   children: ReactNode
   className?: string
   as?: 'div' | 'section' | 'article'
+  style?: CSSProperties
 }
 
-export function ScrollReveal({ children, className = '', as: Tag = 'div' }: Props) {
+export function ScrollReveal({ children, className = '', as: Tag = 'div', style }: Props) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export function ScrollReveal({ children, className = '', as: Tag = 'div' }: Prop
   }, [])
 
   return (
-    <Tag ref={ref} className={`section-fade ${className}`}>
+    <Tag ref={ref} className={`section-fade ${className}`} style={style}>
       {children}
     </Tag>
   )

@@ -4,6 +4,8 @@ import { prisma } from '@/lib/prisma'
 import { resolveCoverImage, parseVideoUrl, getImagesFromJson } from '@/lib/utils'
 import { ProjectDetailClient } from './ProjectDetailClient'
 
+export const dynamic = 'force-dynamic'
+
 interface Props {
   params: Promise<{ slug: string }>
 }

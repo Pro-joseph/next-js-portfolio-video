@@ -4,6 +4,8 @@ import { prisma } from '@/lib/prisma'
 import { resolveGalleryImage, resolveClientLogo } from '@/lib/utils'
 import { GalleryShowClient } from './GalleryShowClient'
 
+export const dynamic = 'force-dynamic'
+
 interface Props {
   params: Promise<{ slug: string }>
 }
