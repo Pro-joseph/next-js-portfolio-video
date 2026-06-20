@@ -9,7 +9,7 @@ interface Props {
   siteName?: string
 }
 
-export function Header({ siteName = 'Oumalk' }: Props) {
+export function Header({ siteName = 'Oumalek' }: Props) {
   const pathname = usePathname()
   const { isLight, toggleTheme } = useTheme()
   const [mobileOpen, setMobileOpen] = useState(false)
