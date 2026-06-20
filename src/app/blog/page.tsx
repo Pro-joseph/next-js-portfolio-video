@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Cinematic Research',
   description: 'Research logs and articles on cinematography, filmmaking techniques, and video production insights',

@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { getImagesFromJson, resolveCoverImage } from '@/lib/utils'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { FeaturedWork } from '@/components/sections/FeaturedWork'
+
+export const dynamic = 'force-dynamic'
 import { ServicesSection } from '@/components/sections/ServicesSection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { AboutSection } from '@/components/sections/AboutSection'

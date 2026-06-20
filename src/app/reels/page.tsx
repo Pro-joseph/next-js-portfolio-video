@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { resolveCoverImage, getYouTubeThumbnail } from '@/lib/utils'
 import { ReelsClient } from './ReelsClient'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Reels',
   description: 'Watch our latest video reels — highlight cuts from weddings, events, and commercial productions',

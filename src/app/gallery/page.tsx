@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { resolveClientLogo } from '@/lib/utils'
 import { GalleryIndexClient } from './GalleryIndexClient'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Client Gallery',
   description: 'View client galleries and event photography — moments captured by Oumalk',

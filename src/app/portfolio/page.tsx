@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { resolveCoverImage } from '@/lib/utils'
 import { PortfolioClient } from './PortfolioClient'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Portfolio',
   description: 'Browse our portfolio of professional videography projects — weddings, events, and commercial work',

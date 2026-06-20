@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { ContactClient } from './ContactClient'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Get in touch with Oumalk to discuss your next video project — weddings, events, and commercial content',

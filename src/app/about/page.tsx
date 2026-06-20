@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { getImagesFromJson } from '@/lib/utils'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'About',
   description: 'Learn about Oumalk — our team, our story, and our passion for visual storytelling',
