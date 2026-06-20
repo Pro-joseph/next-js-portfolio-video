@@ -4,11 +4,12 @@ import { usePathname } from 'next/navigation'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { CustomCursor } from '@/components/layout/CustomCursor'
+import type { SocialLinksMap } from '@/components/ui/SocialLinks'
 
 interface Props {
   children: React.ReactNode
   siteName: string
-  social: { facebook?: string; instagram?: string; youtube?: string }
+  social: SocialLinksMap
   contact: { email?: string; phone?: string }
   copyright: string
 }

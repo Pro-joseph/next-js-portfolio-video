@@ -23,6 +23,8 @@ export default async function AdminSettingsPage() {
               { header: 'Group', accessor: (s) => s.group },
               { header: 'Visible', accessor: (s) => s.isVisible ? 'Yes' : 'No' },
             ]}
+            createHref="/admin/settings/new"
+            editHref={(s) => `/admin/settings/${s.id}`}
           />
         </div>
 

@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { getImagesFromJson } from '@/lib/utils'
 import Link from 'next/link'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
+import { SocialLinks } from '@/components/ui/SocialLinks'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default async function AboutPage() {
-  const [sections, testimonials, packages, settings] = await Promise.all([
+  const [sections, testimonials, packages, settings, socialSettings] = await Promise.all([
     prisma.pageSection.findMany({
       where: { isVisible: true, key: { in: ['about', 'stats'] } },
     }),
@@ -26,7 +27,15 @@ export default async function AboutPage() {
     prisma.siteSetting.findMany({
       where: { group: 'stats', isVisible: true },
     }),
+    prisma.siteSetting.findMany({
+      where: { isVisible: true, key: { in: ['social_facebook', 'social_instagram', 'social_youtube', 'social_twitter', 'social_tiktok', 'social_linkedin', 'social_vimeo'] } },
+    }),
   ])
+
+  const social: Record<string, string> = {}
+  for (const s of socialSettings) {
+    if (s.value) social[s.key.replace('social_', '')] = s.value
+  }
 
   const about = sections.find(s => s.key === 'about')
   const stats: Record<string, string> = {}
@@ -150,6 +159,15 @@ export default async function AboutPage() {
             </div>
           </ScrollReveal>
         )}
+
+        <ScrollReveal as="section" style={{ textAlign: 'center', padding: '4rem 0' }}>
+          <div className="accent-line" style={{ margin: '0 auto 1rem' }} />
+          <h2 className="section-title" style={{ marginBottom: '1rem' }}>Follow Us</h2>
+          <p style={{ color: 'var(--muted)', marginBottom: '2rem' }}>Stay connected for the latest work and behind-the-scenes content</p>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <SocialLinks social={social} />
+          </div>
+        </ScrollReveal>
       </div>
     </div>
   )

@@ -28,19 +28,23 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   let siteName = 'Oumalek'
-  let social: { facebook?: string; instagram?: string; youtube?: string } = {}
+  let social: { facebook?: string; instagram?: string; youtube?: string; twitter?: string; tiktok?: string; linkedin?: string; vimeo?: string } = {}
   let contact: { email?: string; phone?: string } = {}
   let copyright = ''
 
   try {
     const settings = await prisma.siteSetting.findMany({
-      where: { isVisible: true, key: { in: ['site_name', 'social_facebook', 'social_instagram', 'social_youtube', 'contact_email', 'contact_phone', 'copyright'] } },
+      where: { isVisible: true, key: { in: ['site_name', 'social_facebook', 'social_instagram', 'social_youtube', 'social_twitter', 'social_tiktok', 'social_linkedin', 'social_vimeo', 'contact_email', 'contact_phone', 'copyright'] } },
     })
     for (const s of settings) {
       if (s.key === 'site_name' && s.value) siteName = s.value
       else if (s.key === 'social_facebook') social.facebook = s.value || undefined
       else if (s.key === 'social_instagram') social.instagram = s.value || undefined
       else if (s.key === 'social_youtube') social.youtube = s.value || undefined
+      else if (s.key === 'social_twitter') social.twitter = s.value || undefined
+      else if (s.key === 'social_tiktok') social.tiktok = s.value || undefined
+      else if (s.key === 'social_linkedin') social.linkedin = s.value || undefined
+      else if (s.key === 'social_vimeo') social.vimeo = s.value || undefined
       else if (s.key === 'contact_email') contact.email = s.value || undefined
       else if (s.key === 'contact_phone') contact.phone = s.value || undefined
       else if (s.key === 'copyright') copyright = s.value ?? ''

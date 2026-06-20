@@ -9,6 +9,7 @@ import { ServicesSection } from '@/components/sections/ServicesSection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { AboutSection } from '@/components/sections/AboutSection'
 import { CTASection } from '@/components/sections/CTASection'
+import { SocialLinks } from '@/components/ui/SocialLinks'
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [sections, featuredProjects, testimonials, packages] = await Promise.all([
+  const [sections, featuredProjects, testimonials, packages, socialSettings] = await Promise.all([
     prisma.pageSection.findMany({
       where: { isVisible: true, key: { in: ['hero', 'about', 'cta'] } },
     }),
@@ -33,7 +34,15 @@ export default async function HomePage() {
     prisma.package.findMany({
       where: { isActive: true },
     }),
+    prisma.siteSetting.findMany({
+      where: { isVisible: true, key: { in: ['social_facebook', 'social_instagram', 'social_youtube', 'social_twitter', 'social_tiktok', 'social_linkedin', 'social_vimeo'] } },
+    }),
   ])
+
+  const social: Record<string, string> = {}
+  for (const s of socialSettings) {
+    if (s.value) social[s.key.replace('social_', '')] = s.value
+  }
 
   const hero = sections.find(s => s.key === 'hero')
   const about = sections.find(s => s.key === 'about')
@@ -90,6 +99,17 @@ export default async function HomePage() {
         buttonText={cta?.buttonText ?? undefined}
         buttonLink={cta?.buttonLink ?? undefined}
       />
+
+      <section style={{ padding: '2rem 1.5rem 5rem', textAlign: 'center' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="accent-line" style={{ margin: '0 auto 1rem' }} />
+          <h2 className="section-title" style={{ marginBottom: '1rem' }}>Follow Us</h2>
+          <p style={{ color: 'var(--muted)', marginBottom: '2rem' }}>Stay connected for the latest work and behind-the-scenes content</p>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <SocialLinks social={social} />
+          </div>
+        </div>
+      </section>
     </>
   )
 }
