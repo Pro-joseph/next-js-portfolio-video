@@ -25,6 +25,7 @@ export default async function AdminSettingsPage() {
             ]}
             createHref="/admin/settings/new"
             editHref={(s) => `/admin/settings/${s.id}`}
+            deleteModel="siteSetting"
           />
         </div>
 

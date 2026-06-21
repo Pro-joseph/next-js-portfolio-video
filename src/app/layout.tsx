@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Bebas_Neue, DM_Sans } from 'next/font/google'
 import './globals.css'
 import { ClientShell } from '@/components/layout/ClientShell'
+import { Analytics } from '@vercel/analytics/next'
 import { prisma } from '@/lib/prisma'
 
 const bebasNeue = Bebas_Neue({
@@ -88,6 +89,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           {children}
         </ClientShell>
+        <Analytics />
       </body>
     </html>
   )
