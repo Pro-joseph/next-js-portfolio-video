@@ -13,7 +13,7 @@ export default async function EditSiteSettingPage({ params }: { params: Promise<
       <h1 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '2.5rem', color: 'var(--text)', marginBottom: '2rem' }}>Edit Setting</h1>
       <AdminForm action={upsertSiteSetting} fields={[
         { name: 'key', label: 'Key', type: 'text', required: true },
-        { name: 'value', label: 'Value', type: 'url' },
+        { name: 'value', label: 'Value', type: 'text' },
         { name: 'type', label: 'Type', type: 'select', options: [
           { value: 'text', label: 'Text' },
           { value: 'url', label: 'URL' },
